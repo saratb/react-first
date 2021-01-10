@@ -1,6 +1,6 @@
 // This is actually a JSX File
 import React from 'react';
-import './App.css';
+
 
 function App() {
   // Missing the Render Function for 2020 and 2021
