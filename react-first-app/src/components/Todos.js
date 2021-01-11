@@ -1,14 +1,15 @@
 // This is actually a JSX File
-import React from 'react';
+import React, { Component } from 'react';
 
+class Todos extends Component {
 
-function App() {
-  // Missing the Render Function for 2020 and 2021
-  return ( // Return a JSX File
-    <div className="App">
-      <h1> App </h1>
-    </div>
-  );
+  render() {
+    return ( // Return a JSX File
+      <div>
+        <h1> Todos </h1>
+      </div>
+    );
+  }
 }
 
-export default App;
+export default Todos;
