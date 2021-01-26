@@ -27,11 +27,15 @@ class App extends Component {
     ] // Array of Objects
   }
 
+  markComplete = () => {
+    console.log('from app.js');
+  }
+
   render() {
     console.log(this.state.todos);
     return ( //Return a JSX File // Adding a prop
       <div className="App">
-        <Todos todos={this.state.todos}/>
+        <Todos todos={this.state.todos} markComplete={this.markComplete}/>
       </div>
     );
   }
