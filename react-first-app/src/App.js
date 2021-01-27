@@ -27,8 +27,13 @@ class App extends Component {
     ] // Array of Objects
   }
 
-  markComplete = () => {
-    console.log('from app.js');
+  markComplete = (id) => {
+    this.setState({todos: this.state.todos.map(todo => {
+      if(todo.id == id){
+        todo.completed = !todo.completed
+      }
+      return todo;
+    }) });
   }
 
   render() {
