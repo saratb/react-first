@@ -10,7 +10,9 @@ class Todos extends Component {
   render() {
     // console.log(this.props.todos); //Printing all the Todos
       return this.props.todos.map((todo) => (
-        <TodoItem key = {todo.id} todo = {todo} markComplete = {this.props.markComplete} />  /* Outputting the 3 props ID from App.js */
+        <TodoItem key = {todo.id} todo = {todo}
+          markComplete = {this.props.markComplete}
+          delTodo ={this.props.delTodo}/>  /* Outputting the 3 props ID from App.js */
         /* Getting the output from TodoItem */
       ))
   }
