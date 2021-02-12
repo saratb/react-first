@@ -46,13 +46,23 @@ class App extends Component {
       !== id)]})
   }
 
+  // Add Todo
+  addToDo = (title) => {
+    const newTodo = {
+      id: 4,
+      title: title,
+      completed: false
+    }
+    this.setState({ todos: [...this.state.todos, newTodo] });
+  }
+
   render() {
     console.log(this.state.todos);
     return ( //Return a JSX File // Adding a prop
       <div className="App">
         <div className="container">
           <Header />
-          <AddToDo />
+          <AddToDo addToDo={this.addToDo}/>
           <Todos todos={this.state.todos} markComplete={this.markComplete}
           delTodo = {this.delTodo}/>
         </div>
