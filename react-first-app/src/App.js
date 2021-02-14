@@ -1,33 +1,24 @@
 import React, { Component } from "react";
-import "./App.css";
-import Header from './components/layout/Header'
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+import Header from './components/layout/Header';
 import Todos from './components/Todos';
 import AddToDo from './components/AddToDo';
-import { v4 as uuidv4 } from 'uuid';
+import About from './components/pages/About';
+//import { v4 as uuidv4 } from 'uuid';
+
+import "./App.css";
+import  axios from 'axios';
+
 
 class App extends Component {
 
   state = { // JavaScript Object
-    todos: [
-      {
-        id: uuidv4(),
-        title: 'Take out the trash',
-        completed: false
+    todos: [] // Array of Objects
+  }
 
-      },
-      {
-        id: uuidv4(),
-        title: 'Dinner with family',
-        completed: true
-
-      },
-      {
-        id: uuidv4(),
-        title: 'Meeting with Boss',
-        completed: false
-
-      }
-    ] // Array of Objects
+  componentDidMount() {
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
+    .then(res => this.setState({todos: res.data}));
   }
 
   // Toggle Complete
@@ -42,33 +33,46 @@ class App extends Component {
 
   //Delete todo (Spread operator [...])
   delTodo = (id) => {
-    this.setState({ todos: [...this.state.todos.filter(todo => todo.id
-      !== id)]})
+
+    axios.delete('https://jsonplaceholder.typicode.com/todos/${id}')
+      .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id
+        !== id)] }));
+    
   }
 
   // Add Todo
   addToDo = (title) => {
-    const newTodo = {
-      id: uuidv4(),
-      title: title,
-      completed: false
-    }
-    this.setState({ todos: [...this.state.todos, newTodo] });
+      axios.post('https://jsonplaceholder.typicode.com/todos', {
+          title,
+          completed: false
+      })
+        .then(res => this.setState({ todos: [...this.state.todos, res.data] }));
+
   }
 
   render() {
     console.log(this.state.todos);
     return ( //Return a JSX File // Adding a prop
+      <Router>
       <div className="App">
         <div className="container">
           <Header />
-          <AddToDo addToDo={this.addToDo}/>
-          <Todos todos={this.state.todos} markComplete={this.markComplete}
-          delTodo = {this.delTodo}/>
+          <Route exact path="/" render={props => (
+            <React.Fragment>
+                <AddToDo addToDo={this.addToDo}/>
+                <Todos todos={this.state.todos} markComplete={this.markComplete}
+                delTodo = {this.delTodo}/>
+            </React.Fragment>
+          )} />
+            <Route path="/about" component={About} />
+
         </div>
       </div>
+      </Router>
     );
   }
 }
 
 export default App;
+
+//Locating to the exat path using the /about
