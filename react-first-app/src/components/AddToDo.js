@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 
 export class AddToDo extends Component {
@@ -35,5 +36,7 @@ export class AddToDo extends Component {
     )
   }
 }
+
+
 
 export default AddToDo
